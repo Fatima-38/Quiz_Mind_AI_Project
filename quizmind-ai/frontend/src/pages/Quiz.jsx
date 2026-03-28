@@ -22,7 +22,7 @@ function Quiz() {
   const generateQuiz = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("http://127.0.0.1:8000/api/quiz/generate", {
+      const response = await axios.post("https://quizmindaiproject-production.up.railway.app/api/quiz/generate", {
         topic, difficulty, num_questions: numQuestions
       });
       setQuestions(response.data.questions);
@@ -44,7 +44,7 @@ function Quiz() {
   const handleBookmark = async () => {
     const q = questions[currentIndex];
     try {
-      await axios.post("http://127.0.0.1:8000/api/bookmark/save", {
+      await axios.post("https://quizmindaiproject-production.up.railway.app/api/bookmark/save", {
         question: q.question,
         options: JSON.stringify(q.options),
         correct_answer: q.correct_answer,
@@ -59,7 +59,7 @@ function Quiz() {
 
   const handleNext = async () => {
     if (currentIndex + 1 >= questions.length) {
-      await axios.post("http://127.0.0.1:8000/api/score/save", {
+      await axios.post("https://quizmindaiproject-production.up.railway.app/api/score/save", {
         topic, difficulty, correct: score, total: questions.length
       });
       navigate("/results", { state: { score, total: questions.length, topic, difficulty } });
